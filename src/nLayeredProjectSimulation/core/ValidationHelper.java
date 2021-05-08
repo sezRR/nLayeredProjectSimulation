@@ -14,23 +14,24 @@ public class ValidationHelper {
 		
 		return true;
 	}
+	
+	static List<String> emails = new ArrayList<String>();
 
 	public static boolean validateEmail(String email) {
 		String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(email);
 
-		List<String> emails = new ArrayList<String>();
-
 		var result = matcher.matches();
 
 		if (result) {
 			for (String forEachEmail : emails) {
-				if (email == forEachEmail) {
+				if (forEachEmail.equals(email)) {
 					System.err.println("The email address you entered is already in use on another account");
 					return false;
 				}
 			}
+			emails.add(email);
 			return true;
 		} else {
 			System.err.println("Please enter a valid email address");
